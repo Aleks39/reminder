@@ -42,8 +42,9 @@ func main() {
 	c := cron.New()
 	defer c.Stop()
 
+	// test
 	var reminder = entities.Reminder{
-		Time:  time.Now(),
+		Time:  time.Now().Add(3 * time.Hour),
 		Topic: "Созвон с Виталей",
 		Text:  "Информативное описание",
 	}
