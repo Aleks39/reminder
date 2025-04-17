@@ -44,7 +44,7 @@ func main() {
 
 	addReminders()
 
-	c.AddFunc("@every 20s", func() {
+	c.AddFunc("@every 3s", func() {
 		logger.Info("1")
 		now := time.Now().Truncate(time.Minute).UTC()
 		logger.Info("Текущее время", "time", now)
@@ -69,12 +69,17 @@ func main() {
 func addReminders() {
 	reminders = make(map[string]*entities.Reminder)
 	AddReminder(
-		time.Date(2025, 04, 17, 16, 55, 0, 0, time.UTC),
+		time.Date(2025, 04, 17, 17, 30, 0, 0, time.UTC),
 		"Созвон с Никитой",
 		"Информативное описание",
 	)
 	AddReminder(
-		time.Date(2025, 04, 17, 16, 59, 0, 0, time.UTC),
+		time.Date(2025, 04, 17, 17, 31, 0, 0, time.UTC),
+		"Созвон с Виталей",
+		"Информативное описание",
+	)
+	AddReminder(
+		time.Date(2025, 04, 17, 17, 32, 0, 0, time.UTC),
 		"Созвон с Виталей",
 		"Информативное описание",
 	)
