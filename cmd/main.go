@@ -42,23 +42,34 @@ func main() {
 	c := cron.New()
 	defer c.Stop()
 
-	addReminders()
+	var reminder = entities.Reminder{
+		Time:  time.Now(),
+		Topic: "topic",
+		Text:  "text",
+	}
+	if err = sendReminderService.SendReminder(ctx, &reminder); err != nil {
+		logger.Error("Ошибка отправки напоминани", "error", err)
+	} else {
+		logger.Info("Напоминание успешно отправлена", "remind", reminder.Text, "author", reminder.Topic)
+	}
 
-	c.AddFunc("@every 3s", func() {
-		logger.Info("1")
-		now := time.Now().Truncate(time.Minute).UTC()
-		logger.Info("Текущее время", "time", now)
+	//addReminders()
 
-		currentReminders := GetCurrentReminders()
-		for _, reminder := range currentReminders {
-			logger.Info("2")
-			if err = sendReminderService.SendReminder(ctx, reminder); err != nil {
-				logger.Error("Ошибка отправки напоминани", "error", err)
-			} else {
-				logger.Info("Напоминание успешно отправлена", "remind", reminder.Text, "author", reminder.Topic)
-			}
-		}
-	})
+	//c.AddFunc("@every 3s", func() {
+	//	logger.Info("1")
+	//	now := time.Now().Truncate(time.Minute).UTC()
+	//	logger.Info("Текущее время", "time", now)
+	//
+	//	currentReminders := GetCurrentReminders()
+	//	for _, reminder := range currentReminders {
+	//		logger.Info("2")
+	//		if err = sendReminderService.SendReminder(ctx, reminder); err != nil {
+	//			logger.Error("Ошибка отправки напоминани", "error", err)
+	//		} else {
+	//			logger.Info("Напоминание успешно отправлена", "remind", reminder.Text, "author", reminder.Topic)
+	//		}
+	//	}
+	//})
 
 	c.Start()
 	logger.Info("Планировщик запущен. Ожидание задач.")
