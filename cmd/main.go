@@ -48,7 +48,7 @@ func main() {
 		Text:  "text",
 	}
 	if err = sendReminderService.SendReminder(ctx, &reminder); err != nil {
-		logger.Error("Ошибка отправки напоминани", "error", err)
+		logger.Error("Ошибка отправки напоминания"+err.Error(), "error", err)
 	} else {
 		logger.Info("Напоминание успешно отправлена", "remind", reminder.Text, "author", reminder.Topic)
 	}
