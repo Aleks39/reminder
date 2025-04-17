@@ -44,12 +44,11 @@ func main() {
 
 	var reminder = entities.Reminder{
 		Time:  time.Now(),
-		Topic: "topic",
-		Text:  "text",
+		Topic: "Созвон с Виталей",
+		Text:  "Информативное описание",
 	}
 	if err = sendReminderService.SendReminder(ctx, &reminder); err != nil {
-		// test
-		logger.Error("Ошибка отправки напоминания"+err.Error()+os.Getenv("BOT_TOKEN")+os.Getenv("CHAT_ID"), "error", err)
+		logger.Error("Ошибка отправки напоминания", "error", err)
 	} else {
 		logger.Info("Напоминание успешно отправлено", "remind", reminder.Text, "author", reminder.Topic)
 	}
