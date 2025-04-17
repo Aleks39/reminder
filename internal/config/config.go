@@ -2,6 +2,8 @@ package config
 
 import (
 	"errors"
+	"github.com/joho/godotenv"
+	"log"
 	"log/slog"
 	"os"
 	"strconv"
@@ -14,9 +16,9 @@ type Config struct {
 
 func LoadConfig(logger *slog.Logger) (*Config, error) {
 	//todo для локали
-	//if err := godotenv.Load(); err != nil {
-	//	log.Fatal("Ошибка загрузки .env файла")
-	//}
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Ошибка загрузки .env файла")
+	}
 	botToken := os.Getenv("BOT_TOKEN")
 	chatIDStr := os.Getenv("CHAT_ID")
 
